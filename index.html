@@ -10,6 +10,10 @@
     <style>
         body { background-color: #f8f9fa; }
         .card { background-color: white; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); padding: 1.5rem; }
+        .manager-controls { display: flex; gap: 10px; align-items: center; }
+        .control-select { border: 1px solid #d1d5db; border-radius: 0.25rem; padding: 0.25rem 0.5rem; font-size: 0.75rem; background-color: #f9fafb; cursor: pointer; }
+        .control-btn { font-size: 0.75rem; padding: 0.25rem 0.5rem; background-color: #e5e7eb; border-radius: 0.25rem; cursor: pointer; font-weight: bold; color: #374151; transition: 0.2s; }
+        .control-btn:hover { background-color: #d1d5db; }
     </style>
 </head>
 <body class="text-gray-800 font-sans p-6">
@@ -55,40 +59,171 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <div class="card"><h2 class="font-bold mb-2">1. Innovation Activity</h2><div id="chart1" style="height:300px;"></div></div>
-            <div class="card"><h2 class="font-bold mb-2">2. Technology Adoption</h2><div id="chart2" style="height:300px;"></div></div>
-            <div class="card"><h2 class="font-bold mb-2">3. Operational Impact</h2><div id="chart3" style="height:300px;"></div></div>
-            <div class="card"><h2 class="font-bold mb-2">4. Business Impact</h2><div id="chart4" style="height:300px;"></div></div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">📈 Baseline Innovation Tracking</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+            
+            <div class="card">
+                <div class="flex justify-between items-start mb-2">
+                    <h2 class="font-bold">Innovation Activity Trends</h2>
+                    <div class="manager-controls">
+                        <select id="type-chart1" class="control-select" onchange="updateChart('chart1', 'act', this.value)">
+                            <option value="bar">Bar Chart</option>
+                            <option value="line">Line Chart</option>
+                            <option value="pie">Pie (Battery by Factory)</option>
+                            <option value="table">Data Table</option>
+                        </select>
+                        <button class="control-btn" onclick="downloadCSV('act')">⬇ CSV</button>
+                    </div>
+                </div>
+                <div id="chart1" style="height:250px;"></div>
+            </div>
+
+            <div class="card">
+                <div class="flex justify-between items-start mb-2">
+                    <h2 class="font-bold">Technology Adoption Trends</h2>
+                    <div class="manager-controls">
+                        <select id="type-chart2" class="control-select" onchange="updateChart('chart2', 'tech', this.value)">
+                            <option value="bar">Bar Chart</option>
+                            <option value="line">Line Chart</option>
+                            <option value="pie">Pie (Stations by Factory)</option>
+                            <option value="table">Data Table</option>
+                        </select>
+                        <button class="control-btn" onclick="downloadCSV('tech')">⬇ CSV</button>
+                    </div>
+                </div>
+                <div id="chart2" style="height:250px;"></div>
+            </div>
+
+            <div class="card">
+                <div class="flex justify-between items-start mb-2">
+                    <h2 class="font-bold">Operational Impact Trends</h2>
+                    <div class="manager-controls">
+                        <select id="type-chart3" class="control-select" onchange="updateChart('chart3', 'ops', this.value)">
+                            <option value="bar">Bar Chart</option>
+                            <option value="line">Line Chart</option>
+                            <option value="pie">Pie (Produced vs Delivered)</option>
+                            <option value="table">Data Table</option>
+                        </select>
+                        <button class="control-btn" onclick="downloadCSV('ops')">⬇ CSV</button>
+                    </div>
+                </div>
+                <div id="chart3" style="height:250px;"></div>
+            </div>
+
+            <div class="card">
+                <div class="flex justify-between items-start mb-2">
+                    <h2 class="font-bold">Business Impact Trends</h2>
+                    <div class="manager-controls">
+                        <select id="type-chart4" class="control-select" onchange="updateChart('chart4', 'biz', this.value)">
+                            <option value="line">Line Chart</option>
+                            <option value="bar">Bar Chart</option>
+                            <option value="pie">Pie (EV Rev by Factory)</option>
+                            <option value="table">Data Table</option>
+                        </select>
+                        <button class="control-btn" onclick="downloadCSV('biz')">⬇ CSV</button>
+                    </div>
+                </div>
+                <div id="chart4" style="height:250px;"></div>
+            </div>
+
+        </div>
+
+        <hr class="mb-12 border-gray-300">
+
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">🔍 Managerial Deep Dive: Evaluating Innovation Capability</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            
+            <div class="card border-l-4 border-blue-500">
+                <div class="flex justify-between items-start mb-1">
+                    <h3 class="text-xl font-bold text-gray-800">Manufacturing Capability</h3>
+                    <div class="manager-controls">
+                        <select id="type-chart5" class="control-select" onchange="updateChart('chart5', 'mfg', this.value)">
+                            <option value="line">Line Chart</option>
+                            <option value="bar">Bar Chart</option>
+                            <option value="pie">Pie Chart (Scale by Factory)</option>
+                            <option value="table">Data Table</option>
+                        </select>
+                        <button class="control-btn" onclick="downloadCSV('mfg')">⬇ CSV</button>
+                    </div>
+                </div>
+                <p class="text-xs font-bold text-blue-600 mb-3 uppercase tracking-wider">Automation → Production Efficiency</p>
+                <p class="text-sm text-gray-800 italic bg-blue-50 p-2 rounded mb-4"><b>Managerial Question:</b> Does higher automation improve factory efficiency and increase production capacity?</p>
+                <div id="chart5" style="height:320px;"></div>
+            </div>
+
+            <div class="card border-l-4 border-red-500">
+                <div class="flex justify-between items-start mb-1">
+                    <h3 class="text-xl font-bold text-gray-800">Ecosystem Expansion</h3>
+                    <div class="manager-controls">
+                        <select id="type-chart6" class="control-select" onchange="updateChart('chart6', 'eco', this.value)">
+                            <option value="line">Line Chart</option>
+                            <option value="bar">Bar Chart</option>
+                            <option value="pie">Pie Chart (Infrastructure Mix)</option>
+                            <option value="table">Data Table</option>
+                        </select>
+                        <button class="control-btn" onclick="downloadCSV('eco')">⬇ CSV</button>
+                    </div>
+                </div>
+                <p class="text-xs font-bold text-red-600 mb-3 uppercase tracking-wider">Infrastructure & Technology → Vehicle Adoption</p>
+                <p class="text-sm text-gray-800 italic bg-red-50 p-2 rounded mb-4"><b>Managerial Question:</b> Does the expansion of battery production and charging infrastructure support the growth of vehicle deliveries?</p>
+                <div id="chart6" style="height:320px;"></div>
+            </div>
+
+            <div class="card border-l-4 border-purple-500">
+                <div class="flex justify-between items-start mb-1">
+                    <h3 class="text-xl font-bold text-gray-800">Digital Innovation</h3>
+                    <div class="manager-controls">
+                        <select id="type-chart7" class="control-select" onchange="updateChart('chart7', 'digi', this.value)">
+                            <option value="line">Line Chart</option>
+                            <option value="bar">Bar Chart</option>
+                            <option value="pie">Pie Chart (Adoption Rate)</option>
+                            <option value="table">Data Table</option>
+                        </select>
+                        <button class="control-btn" onclick="downloadCSV('digi')">⬇ CSV</button>
+                    </div>
+                </div>
+                <p class="text-xs font-bold text-purple-600 mb-3 uppercase tracking-wider">AI & Autonomous Driving Adoption</p>
+                <p class="text-sm text-gray-800 italic bg-purple-50 p-2 rounded mb-4"><b>Managerial Question:</b> Is autonomous driving capability scaling alongside the growth of the vehicle fleet?</p>
+                <div id="chart7" style="height:320px;"></div>
+            </div>
+
+            <div class="card border-l-4 border-green-500">
+                <div class="flex justify-between items-start mb-1">
+                    <h3 class="text-xl font-bold text-gray-800">Financial Impact</h3>
+                    <div class="manager-controls">
+                        <select id="type-chart8" class="control-select" onchange="updateChart('chart8', 'fin', this.value)">
+                            <option value="line">Line Chart</option>
+                            <option value="bar">Stacked Bar Chart</option>
+                            <option value="pie">Pie Chart (Revenue Share)</option>
+                            <option value="table">Data Table</option>
+                        </select>
+                        <button class="control-btn" onclick="downloadCSV('fin')">⬇ CSV</button>
+                    </div>
+                </div>
+                <p class="text-xs font-bold text-green-600 mb-3 uppercase tracking-wider">Financial Viability</p>
+                <p class="text-sm text-gray-800 italic bg-green-50 p-2 rounded mb-4"><b>Managerial Question:</b> Are technological and ecosystem innovations generating sustainable revenue growth and profitability?</p>
+                <div id="chart8" style="height:320px;"></div>
+            </div>
+
         </div>
 
         <div class="card border-t-4 border-gray-800">
             <h2 class="text-xl font-bold mb-4">➕ Input Prototype Data (In-Memory)</h2>
             <form id="dataForm" class="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
-                <div>
-                    <label class="block text-xs font-bold mb-1">Date</label>
-                    <input type="date" id="newDate" required class="border w-full p-2 rounded text-sm">
-                </div>
+                <div><label class="block text-xs font-bold mb-1">Date</label><input type="date" id="newDate" required class="border w-full p-2 rounded text-sm"></div>
                 <div>
                     <label class="block text-xs font-bold mb-1">Factory</label>
                     <select id="newFactory" class="border w-full p-2 rounded text-sm">
                         <option value="Texas">Texas</option>
                         <option value="Shanghai">Shanghai</option>
+                        <option value="Fremont">Fremont</option>
+                        <option value="Berlin">Berlin</option>
                     </select>
                 </div>
-                <div>
-                    <label class="block text-xs font-bold mb-1">Vehicles Produced</label>
-                    <input type="number" id="newProduced" value="5000" class="border w-full p-2 rounded text-sm">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold mb-1">EV Revenue ($M)</label>
-                    <input type="number" id="newRev" value="250" class="border w-full p-2 rounded text-sm">
-                </div>
-                <div>
-                    <button type="submit" class="bg-blue-600 text-white font-bold py-2 px-4 rounded w-full hover:bg-blue-700">Add Data</button>
-                </div>
+                <div><label class="block text-xs font-bold mb-1">Vehicles Produced</label><input type="number" id="newProduced" value="5000" class="border w-full p-2 rounded text-sm"></div>
+                <div><label class="block text-xs font-bold mb-1">EV Revenue ($M)</label><input type="number" id="newRev" value="250" class="border w-full p-2 rounded text-sm"></div>
+                <div><button type="submit" class="bg-gray-800 text-white font-bold py-2 px-4 rounded w-full hover:bg-black">Add Data</button></div>
             </form>
-            <p class="text-xs text-gray-400 mt-2">*Note: Because this is a static prototype, data added here will update the charts instantly but will reset upon refreshing the page.</p>
         </div>
     </div>
 
