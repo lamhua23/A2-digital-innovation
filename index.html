@@ -15,55 +15,80 @@
 <body class="text-gray-800 font-sans p-6">
 
     <div class="max-w-7xl mx-auto">
-        <header class="mb-8">
-            <h1 class="text-3xl font-bold text-gray-900">⚡ Tesla Innovation OS</h1>
-            <p class="text-gray-500 mt-1">Strategic Dashboard: Tracking Innovation from Activity to Financial Impact</p>
+        <header class="mb-6 flex justify-between items-end">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">⚡ Tesla Innovation OS</h1>
+                <p class="text-gray-500 mt-1">Strategic Dashboard: Tracking Innovation</p>
+            </div>
+            <div class="card py-2 px-4 flex items-center gap-4">
+                <label class="font-bold text-sm text-gray-600">Filter by Factory:</label>
+                <select id="factoryFilter" class="border border-gray-300 rounded p-1 text-sm">
+                    <option value="All">All Factories</option>
+                    <option value="Fremont">Fremont</option>
+                    <option value="Shanghai">Shanghai</option>
+                    <option value="Texas">Texas</option>
+                    <option value="Berlin">Berlin</option>
+                </select>
+            </div>
         </header>
 
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <div class="card border-t-4 border-blue-500">
                 <h3 class="text-sm font-semibold text-gray-500 uppercase">1. Innovation Activity</h3>
                 <p class="text-xs text-gray-400 mt-1">Avg Mfg Automation Index</p>
-                <p id="kpi-automation" class="text-2xl font-bold mt-1 text-gray-900">Loading...</p>
+                <p id="kpi-automation" class="text-2xl font-bold mt-1 text-gray-900">...</p>
             </div>
             <div class="card border-t-4 border-red-500">
                 <h3 class="text-sm font-semibold text-gray-500 uppercase">2. Tech Adoption</h3>
                 <p class="text-xs text-gray-400 mt-1">Total Autopilot Active (K)</p>
-                <p id="kpi-autopilot" class="text-2xl font-bold mt-1 text-gray-900">Loading...</p>
+                <p id="kpi-autopilot" class="text-2xl font-bold mt-1 text-gray-900">...</p>
             </div>
             <div class="card border-t-4 border-purple-500">
                 <h3 class="text-sm font-semibold text-gray-500 uppercase">3. Operational Impact</h3>
                 <p class="text-xs text-gray-400 mt-1">Total Vehicles Produced</p>
-                <p id="kpi-production" class="text-2xl font-bold mt-1 text-gray-900">Loading...</p>
+                <p id="kpi-production" class="text-2xl font-bold mt-1 text-gray-900">...</p>
             </div>
             <div class="card border-t-4 border-green-500">
                 <h3 class="text-sm font-semibold text-gray-500 uppercase">4. Business Impact</h3>
                 <p class="text-xs text-gray-400 mt-1">Total EV Revenue (Million USD)</p>
-                <p id="kpi-revenue" class="text-2xl font-bold mt-1 text-gray-900">Loading...</p>
+                <p id="kpi-revenue" class="text-2xl font-bold mt-1 text-gray-900">...</p>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div class="card">
-                <h2 class="text-lg font-bold mb-2">1. Innovation Activity</h2>
-                <p class="text-sm text-gray-500 mb-4">Software Updates vs. Battery Output (GWh)</p>
-                <div id="chart1" style="width:100%; height:350px;"></div>
-            </div>
-            <div class="card">
-                <h2 class="text-lg font-bold mb-2">2. Technology Adoption</h2>
-                <p class="text-sm text-gray-500 mb-4">Autopilot Active (K) vs. Charging Stations</p>
-                <div id="chart2" style="width:100%; height:350px;"></div>
-            </div>
-            <div class="card">
-                <h2 class="text-lg font-bold mb-2">3. Operational Impact</h2>
-                <p class="text-sm text-gray-500 mb-4">Vehicles Produced vs. Factory Efficiency</p>
-                <div id="chart3" style="width:100%; height:350px;"></div>
-            </div>
-            <div class="card">
-                <h2 class="text-lg font-bold mb-2">4. Business Impact</h2>
-                <p class="text-sm text-gray-500 mb-4">EV Revenue ($M) vs. Operating Margin (%)</p>
-                <div id="chart4" style="width:100%; height:350px;"></div>
-            </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <div class="card"><h2 class="font-bold mb-2">1. Innovation Activity</h2><div id="chart1" style="height:300px;"></div></div>
+            <div class="card"><h2 class="font-bold mb-2">2. Technology Adoption</h2><div id="chart2" style="height:300px;"></div></div>
+            <div class="card"><h2 class="font-bold mb-2">3. Operational Impact</h2><div id="chart3" style="height:300px;"></div></div>
+            <div class="card"><h2 class="font-bold mb-2">4. Business Impact</h2><div id="chart4" style="height:300px;"></div></div>
+        </div>
+
+        <div class="card border-t-4 border-gray-800">
+            <h2 class="text-xl font-bold mb-4">➕ Input Prototype Data (In-Memory)</h2>
+            <form id="dataForm" class="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
+                <div>
+                    <label class="block text-xs font-bold mb-1">Date</label>
+                    <input type="date" id="newDate" required class="border w-full p-2 rounded text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold mb-1">Factory</label>
+                    <select id="newFactory" class="border w-full p-2 rounded text-sm">
+                        <option value="Texas">Texas</option>
+                        <option value="Shanghai">Shanghai</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold mb-1">Vehicles Produced</label>
+                    <input type="number" id="newProduced" value="5000" class="border w-full p-2 rounded text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold mb-1">EV Revenue ($M)</label>
+                    <input type="number" id="newRev" value="250" class="border w-full p-2 rounded text-sm">
+                </div>
+                <div>
+                    <button type="submit" class="bg-blue-600 text-white font-bold py-2 px-4 rounded w-full hover:bg-blue-700">Add Data</button>
+                </div>
+            </form>
+            <p class="text-xs text-gray-400 mt-2">*Note: Because this is a static prototype, data added here will update the charts instantly but will reset upon refreshing the page.</p>
         </div>
     </div>
 
